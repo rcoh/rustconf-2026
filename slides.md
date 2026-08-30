@@ -1,659 +1,382 @@
 ---
 theme: default
 layout: cover
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+title: "Rust @ Amazon and Amazon @ Rust"
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply UnoCSS classes to the current slide
-class: text-center
-# https://sli.dev/features/drawing
+  RustConf 2026
+  Russell Cohen
+colorSchema: light
+transition: fade
 drawings:
   persist: false
-# match the restrained transitions from the TokioConf deck
-transition: fade
-# enable Comark Syntax: https://comark.dev/syntax/markdown
-comark: true
-# duration of the presentation
 duration: 35min
 ---
 
-# Welcome to Slidev
+<div class="title-slide">
+  <div class="title-meta">
+    <span>RustConf 2026</span>
+    <span>Russell Cohen <b>&middot;</b> @rcoh</span>
+  </div>
 
-Presentation slides for developers
-
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+  <div class="title-composition">
+    <h1 aria-label="Rust at Amazon and Amazon at Rust">
+      <span class="title-line title-line-forward">
+        <span class="title-ink">Rust @</span>
+        <span class="title-rust">Amazon</span>
+      </span>
+      <span class="title-and"><i></i><b>and</b><i></i></span>
+      <span class="title-line title-line-reverse">
+        <span class="title-rust">Amazon @</span>
+        <span class="title-ink">Rust</span>
+      </span>
+    </h1>
+  </div>
 </div>
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
-</div>
-
 <!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+Hello! I'm Russell, I work on Rust at Amazon. Today I want to share 4 new OSS tools that Rust developers are Amazon that you can use immediately.
 -->
 
 ---
-transition: fade-out
+layout: default
+class: about-slide
 ---
 
-# What is Slidev?
-
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
+<AboutSlide />
 
 <!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
+First a tiny bit about me. I joined AWS in 2020 to create the AWS SDK for Rust. So, if you have spent 6 minutes waiting for the EC2 SDK to compile, I personally apologies.
 
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
+Now I work on a much broader objective: Make Rust successful at Amazon.
 
-<!--
-Here is another comment.
+Rust at Amazon started way before me. When people started using Rust at Amazon, Rust still looked like this:
 -->
 
 ---
-transition: slide-up
-level: 2
+layout: default
+class: retro-rust-slide
 ---
 
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
-
-## Keyboard Shortcuts
-
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Table of contents
-
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
-
-::right::
-
-<Toc text-sm minDepth="1" maxDepth="2" />
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts [filename-example.ts] {all|4|6|6-7|9|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="342" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
+```rust {all|2|3|9}
+fn greet(
+    names: ~[~str],
+    count: @int,
+) {
+    if names.len() == 0 {
+        fail!("nobody here")
     }
-  }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
+    for n in names.iter() {
+        spawn(proc() println!(
+            "hi {}, #{}", *n, *count
+        ))
     }
-  })
 }
 ```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>`, `<BlueSky/>`, and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
 
 <!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
+When folks at Amazon started using Rust, Rust still looked like this. If you were not around in those days, you might be amused by some of the syntax.
 
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
+[click] The tildes — `~[~str]` — were the old sigils for owned and boxed pointers.
+
+[click] The `@int` was a managed, garbage-collected pointer.
+
+[click] And `proc()` was a built-in one-shot closure for spawning tasks.
+
+That was back in 2014. By 2016 a few intrepid folks got a real build system working. Rust's share in the Amazon developer population has been growing ever since.
 -->
 
 ---
-class: px-20
+layout: default
+class: timeline-slide
 ---
 
-# Themes
+<TimelineSlide />
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
+<!--
+2014 was the first use of Rust at Amazon. By 2016 a few intrepid folks had a real build system working.
 
-<div grid="~ cols-2 gap-2" m="t-2">
+And then, recently, something changed: AI got good at Rust.
+-->
 
-```yaml
 ---
-theme: default
+layout: image
+image: /images/langtrends/final-open-tr-light.svg
+class: growth-chart-slide
+backgroundSize: contain
 ---
-```
 
-```yaml
+<!--
+Rust's share of Amazon developers is now growing faster than any other major language. 
+
+There has never been a single day in the last 8 years when year-of-year portion of Amazon builders using Rust has gone down.
+-->
+
 ---
-theme: seriph
+layout: image
+image: /images/fleet-scale-meme.png
+class: fleet-meme-slide
+backgroundSize: cover
 ---
-```
 
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
+<!--
+And obviously part of this growth is AI. But another part of it is that at Amazon scale, Rust's promises of performance, safety, and productivity just _work_.
+-->
 
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
+---
+layout: statement
+class: so-what-slide
+---
 
+# So what?
+
+<!--
+So what?
+
+Well, there are a lot of people at Amazon writing Rust and a lot of it has turned into OSS libraries you can use.
+
+Here's a lightening round of some that you can use right now
+-->
+
+---
+layout: default
+class: index-slide
+---
+
+# Four things you can use now.
+
+<div class="project-index">
+  <div><span>01</span><strong>metrique</strong><small>production metrics</small></div>
+  <div><span>02</span><strong>dial9</strong><small>runtime traces</small></div>
+  <div><span>03</span><strong>Shuttle + Turmoil</strong><small>deterministic failures</small></div>
+  <div><span>04</span><strong>Hydro</strong><small>distributed programs</small></div>
 </div>
 
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
+<!--
+I'll start with metrique
+-->
 
 ---
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you press <kbd>space</kbd> or <kbd>right</kbd>, or click outside the slide on the right.
-
-```html
-<div v-click>This shows up when you trigger a click animation.</div>
-```
-
-</div>
-
-<p v-click>
-You can also add modifiers to change the animation:
-</p>
-
-<div class="grid gap-3 mt-4 text-sm" style="grid-template-columns: repeat(3, 1fr) 1.5fr 1fr">
-  <div v-after.up class="p-3 rounded border border-primary/20 bg-primary/10">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.up</div>
-    <div>Slide from bottom</div>
-  </div>
-  <div v-click.fade-in class="p-3 rounded border border-primary/30 bg-primary/15">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade-in</div>
-    <div>Fade in</div>
-  </div>
-  <div v-click.fade class="p-3 rounded border border-primary/40 bg-primary/20">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade</div>
-    <div>Dim (0.5 opacity)</div>
-  </div>
-  <div v-click.fade.right.scale class="p-3 rounded border border-primary/50 bg-primary/25">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.fade.right.scale</div>
-    <div>Composed</div>
-  </div>
-  <div v-click.none class="p-3 rounded border border-primary/60 bg-primary/30">
-    <div class="font-mono text-xs opacity-60 mb-1">v-click.none</div>
-    <div>No transition</div>
-  </div>
-</div>
-
-<v-click>
-
-The <span v-mark.red="7"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="8">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div v-click mt-12>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
-</div>
-
+layout: default
+class: project-slide metrique-slide
 ---
 
-# Motions
+<div class="project-number">01</div>
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
+<div class="project-intro">
+  <div>
+    <h1>metrique</h1>
+    <p>High-performance wide-event metrics for Rust.</p>
   </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
+  <a href="https://github.com/awslabs/metrique">github.com/awslabs/metrique</a>
 </div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
+<!--
+Amazon does metrics a little bit differently from a lot of other companies. We're heavily focused on "wide event" (aka unit-of-work) metrics. This is where the metrics that you see on a graph don't come from a counter in your code, instead they come from an _event_ your code emits that turns into a counter.
 
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
+In both cases, you have a metric in a dashboard somewhere. But if your metrics from wide events, you have receipts to connect the graph to an actual event in your system.
+-->
 
 ---
-
-# $\LaTeX$
-
-$\LaTeX$ is supported out-of-box. Powered by [$\KaTeX$](https://katex.org/).
-
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
+layout: default
+class: project-slide code-slide
 ---
 
-# Diagrams
+<div class="project-eyebrow">01 &middot; metrique</div>
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
+```rust
+#[metrics(rename_all = "PascalCase")]
+struct RequestMetrics {
+    #[metrics(timestamp)]
+    timestamp: Timestamp,
+    number_of_ducks: usize,
+    #[metrics(unit = Millisecond)]
+    operation_time: Timer,
+    success: bool, // flushes as 0 or 1
 }
 
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
+let mut metrics = RequestMetrics::init();
+metrics.number_of_ducks = 5;
+metrics.success = true;
+// one wide event flushes as the scope drops
 ```
 
+<MetriqueFormats />
+
+<!--
+metrique makes those events plain structs with helpful primitive to handle things like timestamps and units. It's agnostic to the actual output format.
+
+[click] Inside of Amazon, unsurprisingly, we have a metrique backend for our own gnarly metric format. But the same struct also emits plain JSON, EMF, otel, a pretty format just for local debugging (and even dial9).
+-->
+
+---
+layout: default
+class: project-slide dial9-slide
+---
+
+<div class="project-number">02</div>
+
+<div class="dial9-copy">
+  <h1>dial9</h1>
+  <p>A flight recorder for Rust.</p>
+  <a href="https://dial9-rs.github.io/blog/dial9-a-flight-recorder-for-rust/">dial9-rs.github.io</a>
 </div>
 
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
+<!--
+dial9 is a flight recorder for Rust. It makes it economical to record a huge quantity of events from your production systems and extract the data off the hosts without slowing down your application to much.
+
+It started as a tool just for Tokio; Internal Tokio runtime events were recorded, and you could use this to analyze Tokio events alongside profiling information.
+
+Because dial9 was so high performance, you could every poll, every worker park and unpark, alongside sampled stack frames at very low overhead.
+-->
 
 ---
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
+layout: default
+class: project-slide dial9-encode-slide
 ---
 
-# Draggable Elements
+<div class="project-eyebrow">02 &middot; dial9</div>
 
-Double-click on the draggable elements to edit their positions.
+<Dial9Encode />
 
-<br>
+<!--
+To make this possible, recording an individual event has to be really cheap both in time and space. dial9 was originally built to record every single event coming off of Tokio; for a large production application this is routinely in the 100k to 1M/s range across many cores.
 
-###### Directive Usage
+So take one event that represents a "poll start".
 
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
+[click] If you wanted to encode that with tracing + json_subscriber, it takes almost a microsecond. Which is not a lot, but at this event rate it quickly becomes expensive.
 
-<br>
+[click] The same event in dial9's binary format takes about 22 nanoseconds.
 
-###### Component Usage
+[click] That's roughly 48x cheaper to emit — which is what lets you record every single poll on a production host. (OTLP protobuf sits in the middle, around 345ns.)
+-->
 
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
+---
+layout: default
+class: project-slide dial9-sources-slide
+---
 
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
+<div class="project-eyebrow">02 &middot; dial9</div>
+
+<Dial9Sources />
+
+<!--
+Once you have a system that can record lots of events, very efficiently, it can be the central collector for all sorts of data.
+
+[click] Tokio events,
+
+[click] profiling data,
+
+[click] Linux kernel events,
+
+[click] tracing spans,
+
+[click] metrique metrics,
+
+[click] and any custom events you emit from your application
+
+[click] all end up in the same trace file. Each of these is useful alone, but they are way more useful together.
+-->
+
+---
+layout: image
+image: /images/dial9-shot-1.png
+class: shot-slide
+backgroundSize: contain
+---
+
+<!--
+And once you have all this data in one place, you can do some pretty cool stuff. For example, you can look at the slowest instance of a particular request, then jump
+-->
+
+---
+layout: image
+image: /images/dial9-shot-2.png
+class: shot-slide
+backgroundSize: contain
+---
+
+<!--
+directly the the individual poll, and see why it was slow. In this case, dial9 shows that the thread was descheduled by the kernel trying to acquire a lock.
+-->
+
+---
+layout: default
+class: project-slide testing-slide
+---
+
+<div class="project-number">03</div>
+
+# Shuttle + Turmoil
+
+<div class="testing-pair">
+  <div>
+    <strong>Shuttle</strong>
+    <span>concurrent schedules</span>
+    <a href="https://github.com/awslabs/shuttle">awslabs/shuttle</a>
   </div>
-</v-drag>
+  <div>
+    <strong>Turmoil</strong>
+    <span>networks and hosts</span>
+    <a href="https://github.com/tokio-rs/turmoil">tokio-rs/turmoil</a>
+  </div>
+</div>
 
-<img v-drag="'square'" src="https://sli.dev/logo.png">
+<img src="/images/turmoil.png" alt="The Turmoil GitHub project" class="turmoil-image" />
 
-###### Draggable Arrow
+<!--
+So dial9 is like a profiler++++.
 
-```md
-<v-drag-arrow two-way />
-```
+Shuttle and Turmoil attack the same problem at different layers.
 
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
+Shuttle explores different schedules in concurrent Rust code. Turmoil runs multiple hosts in one deterministic simulation and lets the test control the network.
 
----
-src: ./pages/imported-slides.md
-hide: false
----
+Rare failures become seeds and regression tests instead of stories from production.
 
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
+TODO: Add one minimal test and one real bug these tools made reproducible.
+-->
 
 ---
-layout: center
-class: text-center
+layout: default
+class: project-slide hydro-slide
 ---
 
-# Learn More
+<div class="project-number">04</div>
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+<div class="hydro-copy">
+  <h1>Hydro</h1>
+  <p><strong>One Rust program.</strong><br>Many machines.</p>
+  <a href="https://hydro.run/">hydro.run</a>
+</div>
 
-<PoweredBySlidev mt-10 />
+<div class="hydro-thesis">
+  Correctness and deployment become part of the programming model.
+</div>
+
+<!--
+Hydro asks the more ambitious question: can the programming model make some distributed mistakes harder to express at all?
+
+It lets you describe a distributed system as one Rust program, then compiles that program into a deployment plan and code for each machine.
+
+TODO: Follow this divider with the concrete Hydro example and the one idea the audience should remember.
+-->
+
+---
+layout: statement
+class: closing-slide
+---
+
+<p>The next phase is not proving that Rust can run at scale.</p>
+
+# It is making ambitious systems easier to trust.
+
+<div class="closing-projects">metrique &middot; dial9 &middot; Shuttle &middot; Turmoil &middot; Hydro</div>
+
+<!--
+In 2020, making Rust work at Amazon meant filling in the basic ecosystem. Today, AI can produce code much faster, but production systems still need evidence.
+
+Metrique gives us evidence from production. dial9 explains runtime behavior. Shuttle and Turmoil turn nondeterminism into repeatable tests. Hydro pushes correctness into the programming model itself.
+
+The next phase is not proving Rust can run at scale. Amazon has been doing that for ten years. It is making ambitious systems easier for many teams to trust.
+
+Thank you.
+-->
