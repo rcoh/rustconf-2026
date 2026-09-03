@@ -222,11 +222,11 @@ class: project-slide dial9-slide
 </div>
 
 <!--
-dial9 is a flight recorder for Rust. It makes it economical to record a huge quantity of events from your production systems and extract the data off the hosts without slowing down your application to much.
+So a quick story; earlier this year, I got pulled into a performance investigation for a team that was onboarding to Rust. To figure out their performance problem, we really needed to pull lots of events from Tokio, in production. Anyway, long story short, turns out, if you run Tokio and also 16k Java threads on the same host it doesn’t work super well.
 
-It started as a tool just for Tokio; Internal Tokio runtime events were recorded, and you could use this to analyze Tokio events alongside profiling information.
+But along the path of solving this, we build dial9 which lets you capture lots of data on a production host and then upload to S3 so you can analyze it later.
 
-Because dial9 was so high performance, you could every poll, every worker park and unpark, alongside sampled stack frames at very low overhead.
+It started as a tool just for Tokio; and tokio produces a ton of events. We ended up with something pretty high performance.
 -->
 
 ---
@@ -239,7 +239,7 @@ class: project-slide dial9-encode-slide
 <Dial9Encode />
 
 <!--
-To make this possible, recording an individual event has to be really cheap both in time and space. dial9 was originally built to record every single event coming off of Tokio; for a large production application this is routinely in the 100k to 1M/s range across many cores.
+dial9 was originally built to record every single event coming off of Tokio; for a large production application this is routinely in the 100k to 1M/s range across many cores.
 
 So take one event that represents a "poll start".
 
@@ -330,9 +330,9 @@ Shuttle and Turmoil attack the same problem at different layers.
 
 Shuttle explores different schedules in concurrent Rust code. Turmoil runs multiple hosts in one deterministic simulation and lets the test control the network.
 
-Rare failures become seeds and regression tests instead of stories from production.
+dial9 uses shuttle to validate our cross threaded event bus. S3 uses shuttle to validate that its metadata storage works as expected.
 
-TODO: Add one minimal test and one real bug these tools made reproducible.
+I went looking for an example bug caught with shuttle that I could share on a conference talk slide; but the bugs shuttle finds are very complicated and that is kind of the point. Shuttle finds bugs that are only reachable in complex scenarios between interacting threads. If this describes your code, its worth taking a look.
 -->
 
 ---
@@ -355,9 +355,7 @@ class: project-slide hydro-slide
 <!--
 Hydro asks the more ambitious question: can the programming model make some distributed mistakes harder to express at all?
 
-It lets you describe a distributed system as one Rust program, then compiles that program into a deployment plan and code for each machine.
-
-TODO: Follow this divider with the concrete Hydro example and the one idea the audience should remember.
+Hydro lets you describe a distributed system as one Rust program, then compiles that program into a deployment plan and code for each machine.
 -->
 
 ---
