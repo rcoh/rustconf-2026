@@ -5,3 +5,5 @@ dist
 .vite-inspect
 .remote-assets
 components.d.ts
+/rust-at-aws.github.io/
+/slides-export.pdf

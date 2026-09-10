@@ -5,6 +5,18 @@
       <div class="ds-sub">all in the same trace</div>
     </div>
 
+    <div v-click="8" class="ds-destination">
+      <svg class="ds-destination-arrow" width="24" height="58" aria-hidden="true">
+        <path d="M12 0v43m-7-8 7 8 7-8" stroke="currentColor" stroke-width="2" fill="none" />
+      </svg>
+      <div class="ds-destination-label">Destination support is built into dial9</div>
+      <div class="ds-destination-list">
+        <span>S3</span>
+        <span>local disk</span>
+        <span>other destinations</span>
+      </div>
+    </div>
+
     <div class="ds-col ds-col-left">
       <div v-click="1" class="ds-item">
         <img src="/images/tokio-logo.svg" class="ds-logo ds-invert" alt="Tokio" />

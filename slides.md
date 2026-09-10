@@ -10,6 +10,7 @@ transition: fade
 drawings:
   persist: false
 duration: 35min
+section: intro
 ---
 
 <div class="title-slide">
@@ -34,12 +35,13 @@ duration: 35min
 </div>
 
 <!--
-Hello! I'm Russell, I work on Rust at Amazon. Today I want to share 4 new OSS tools that Rust developers are Amazon that you can use immediately.
+Hello! I'm Russell, I work on Rust at Amazon. Today I want to share 4 new OSS tools and libraries that we use Amazon that you can use immediately.
 -->
 
 ---
 layout: default
 class: about-slide
+section: intro
 ---
 
 <AboutSlide />
@@ -55,6 +57,7 @@ Rust at Amazon started way before me. When people started using Rust at Amazon, 
 ---
 layout: default
 class: retro-rust-slide
+section: intro
 ---
 
 ```rust {all|2|3|9}
@@ -74,28 +77,31 @@ fn greet(
 ```
 
 <!--
-When folks at Amazon started using Rust, Rust still looked like this. If you were not around in those days, you might be amused by some of the syntax.
+When folks at Amazon started using Rust, Rust still looked like this.
 
-[click] The tildes — `~[~str]` — were the old sigils for owned and boxed pointers.
+[click] You could use tilde to denote boxed pointers.
 
-[click] The `@int` was a managed, garbage-collected pointer.
+[click] @ for a garbage-collected pointer.
 
-[click] And `proc()` was a built-in one-shot closure for spawning tasks.
-
-That was back in 2014. By 2016 a few intrepid folks got a real build system working. Rust's share in the Amazon developer population has been growing ever since.
+[click] and `proc()` was a built-in one-shot closure for spawning tasks.
 -->
 
 ---
 layout: default
 class: timeline-slide
+section: intro
 ---
 
 <TimelineSlide />
 
 <!--
-2014 was the first use of Rust at Amazon. By 2016 a few intrepid folks had a real build system working.
+That was way back in 2014. By 2016 a few intrepid folks had a real build system working.
 
-And then, recently, something changed: AI got good at Rust.
+And then, recently, something changed:
+
+[click]
+
+AI got good at Rust.
 -->
 
 ---
@@ -103,6 +109,8 @@ layout: image
 image: /images/langtrends/final-open-tr-light.svg
 class: growth-chart-slide
 backgroundSize: contain
+section: intro
+footer: false
 ---
 
 <!--
@@ -112,19 +120,9 @@ There has never been a single day in the last 8 years when year-of-year portion 
 -->
 
 ---
-layout: image
-image: /images/fleet-scale-meme.png
-class: fleet-meme-slide
-backgroundSize: cover
----
-
-<!--
-And obviously part of this growth is AI. But another part of it is that at Amazon scale, Rust's promises of performance, safety, and productivity just _work_.
--->
-
----
 layout: statement
 class: so-what-slide
+section: intro
 ---
 
 # So what?
@@ -140,24 +138,30 @@ Here's a lightening round of some that you can use right now
 ---
 layout: default
 class: index-slide
+section: intro
+qrCircle: true
 ---
 
-# Four things you can use now.
+# Five things you can use now
 
 <div class="project-index">
   <div><span>01</span><strong>metrique</strong><small>production metrics</small></div>
   <div><span>02</span><strong>dial9</strong><small>runtime traces</small></div>
-  <div><span>03</span><strong>Shuttle + Turmoil</strong><small>deterministic failures</small></div>
+  <div><span>03</span><strong>Shuttle + Turmoil</strong><small>deterministic simulation testing for everyone</small></div>
   <div><span>04</span><strong>Hydro</strong><small>distributed programs</small></div>
+  <div><span>05</span><strong>Battery Packs</strong><small>curated crate sets</small></div>
 </div>
 
 <!--
-I'll start with metrique
+We have metrique, our metrics library, dial9 an always on profiler, shuttle and turmoil for simulation testing, hydro for distributed systems, and Battery Packs for sharing ecosystem knowledge.
+
+[click] The QR code links to all of the projects in the talk.
 -->
 
 ---
 layout: default
 class: project-slide metrique-slide
+section: metrique
 ---
 
 <div class="project-number">01</div>
@@ -171,14 +175,13 @@ class: project-slide metrique-slide
 </div>
 
 <!--
-Amazon does metrics a little bit differently from a lot of other companies. We're heavily focused on "wide event" (aka unit-of-work) metrics. This is where the metrics that you see on a graph don't come from a counter in your code, instead they come from an _event_ your code emits that turns into a counter.
-
-In both cases, you have a metric in a dashboard somewhere. But if your metrics from wide events, you have receipts to connect the graph to an actual event in your system.
+First metrique. Amazon does metrics a little bit differently from a lot of other companies. Most teams use "wide event" (aka unit-of-work) metrics. This is where the metrics that you see on a graph don't come from a counter in your code, instead they come from an _event_ your code emits that turns into a counter.
 -->
 
 ---
 layout: default
 class: project-slide code-slide
+section: metrique
 ---
 
 <div class="project-eyebrow">01 &middot; metrique</div>
@@ -203,35 +206,41 @@ metrics.success = true;
 <MetriqueFormats />
 
 <!--
-metrique makes those events plain structs with helpful primitive to handle things like timestamps and units. It's agnostic to the actual output format.
+When the event exists, it makes it much easier to debug why a line on a graph went up.
 
-[click] Inside of Amazon, unsurprisingly, we have a metrique backend for our own gnarly metric format. But the same struct also emits plain JSON, EMF, otel, a pretty format just for local debugging (and even dial9).
+metrique makes those events plain structs with primitives for timestamps and counters and the sorts of things you would want in metrics. Because everything is "just structs", it is very low overhead.
+
+Metrique decouples your metrics from the format they eventually get emitted to.
+
+[click] Inside of Amazon, we have a metrique formatter for our own gnarly metric format. But the same struct also emits plain JSON, EMF, otel which are all in the Open source repo. Metrique also has pretty format just for local debugging.
+
+So if you have an application that emits metrics, it might be worth a look.
 -->
 
 ---
 layout: default
 class: project-slide dial9-slide
+section: dial9
 ---
 
 <div class="project-number">02</div>
 
 <div class="dial9-copy">
   <h1>dial9</h1>
-  <p>A flight recorder for Rust.</p>
+  <p>An always on profiler for production</p>
   <a href="https://dial9-rs.github.io/blog/dial9-a-flight-recorder-for-rust/">dial9-rs.github.io</a>
 </div>
 
 <!--
-So a quick story; earlier this year, I got pulled into a performance investigation for a team that was onboarding to Rust. To figure out their performance problem, we really needed to pull lots of events from Tokio, in production. Anyway, long story short, turns out, if you run Tokio and also 16k Java threads on the same host it doesn’t work super well.
+On to dial9; So a quick story; earlier this year, I got pulled into a performance investigation for a team that was onboarding to Rust. To figure out their performance problem, we really needed to pull lots of events from Tokio, in production. Anyway, long story short, turns out, if you run Tokio and also 16k Java threads on the same host it doesn’t work super well.
 
-But along the path of solving this, we build dial9 which lets you capture lots of data on a production host and then upload to S3 so you can analyze it later.
-
-It started as a tool just for Tokio; and tokio produces a ton of events. We ended up with something pretty high performance.
+But along the path of solving this, we build dial9 which is an always-on profiler you can use in production that works especially well with Tokio applications.
 -->
 
 ---
 layout: default
-class: project-slide dial9-encode-slide
+class: project-slide dial9-benchmark-slide dial9-encode-slide
+section: dial9
 ---
 
 <div class="project-eyebrow">02 &middot; dial9</div>
@@ -239,20 +248,29 @@ class: project-slide dial9-encode-slide
 <Dial9Encode />
 
 <!--
-dial9 was originally built to record every single event coming off of Tokio; for a large production application this is routinely in the 100k to 1M/s range across many cores.
+Because dial9 was originally built to record every single event coming off of Tokio, it needs to serialize events very efficiently.
 
-So take one event that represents a "poll start".
+Serializing an event in dial9 only takes a 10s of nanoseconds and the events and (slide)
+-->
 
-[click] If you wanted to encode that with tracing + json_subscriber, it takes almost a microsecond. Which is not a lot, but at this event rate it quickly becomes expensive.
+---
+layout: default
+class: project-slide dial9-benchmark-slide dial9-size-slide
+section: dial9
+---
 
-[click] The same event in dial9's binary format takes about 22 nanoseconds.
+<div class="project-eyebrow">02 &middot; dial9</div>
 
-[click] That's roughly 48x cheaper to emit — which is what lets you record every single poll on a production host. (OTLP protobuf sits in the middle, around 345ns.)
+<Dial9Encode mode="gzip" />
+
+<!--
+When compressed, events are in the single-digit bytes
 -->
 
 ---
 layout: default
 class: project-slide dial9-sources-slide
+section: dial9
 ---
 
 <div class="project-eyebrow">02 &middot; dial9</div>
@@ -275,6 +293,8 @@ Once you have a system that can record lots of events, very efficiently, it can 
 [click] and any custom events you emit from your application
 
 [click] all end up in the same trace file. Each of these is useful alone, but they are way more useful together.
+
+[click] dial9 can write that trace to S3, local disk, or other destinations. Destination support is built into dial9.
 -->
 
 ---
@@ -282,6 +302,7 @@ layout: image
 image: /images/dial9-shot-1.png
 class: shot-slide
 backgroundSize: contain
+section: dial9
 ---
 
 <!--
@@ -293,15 +314,18 @@ layout: image
 image: /images/dial9-shot-2.png
 class: shot-slide
 backgroundSize: contain
+section: dial9
+footer: false
 ---
 
 <!--
-directly the the individual poll, and see why it was slow. In this case, dial9 shows that the thread was descheduled by the kernel trying to acquire a lock.
+directly the the individual poll, and see why it was slow. In our experience with teams using this at AWS and also in the broader Rust community, this ability is really powerful
 -->
 
 ---
 layout: default
 class: project-slide testing-slide
+section: testing
 ---
 
 <div class="project-number">03</div>
@@ -326,11 +350,13 @@ class: project-slide testing-slide
 <!--
 So dial9 is like a profiler++++.
 
-Shuttle and Turmoil attack the same problem at different layers.
+Shuttle and Turmoil help you simulate rare failure modes deterministically to catch really hard bugs.
 
-Shuttle explores different schedules in concurrent Rust code. Turmoil runs multiple hosts in one deterministic simulation and lets the test control the network.
+Shuttle is a tool to explore different concurrent schedules of your Rust program. Turmoil lets you do deterministic simulation testing of network faults.
 
-dial9 uses shuttle to validate our cross threaded event bus. S3 uses shuttle to validate that its metadata storage works as expected.
+Not _every_ library needs one of these tools, but when you need one, the are extremely helpful.
+
+dial9 uses shuttle to validate our cross threaded event bus maintains certain invariants. S3 uses shuttle to validate that its metadata store works as expected.
 
 I went looking for an example bug caught with shuttle that I could share on a conference talk slide; but the bugs shuttle finds are very complicated and that is kind of the point. Shuttle finds bugs that are only reachable in complex scenarios between interacting threads. If this describes your code, its worth taking a look.
 -->
@@ -338,6 +364,7 @@ I went looking for an example bug caught with shuttle that I could share on a co
 ---
 layout: default
 class: project-slide hydro-slide
+section: hydro
 ---
 
 <div class="project-number">04</div>
@@ -353,28 +380,99 @@ class: project-slide hydro-slide
 </div>
 
 <!--
-Hydro asks the more ambitious question: can the programming model make some distributed mistakes harder to express at all?
+Next I want to talk about Hydro which is a joint work from AWS and Berkeley.
 
-Hydro lets you describe a distributed system as one Rust program, then compiles that program into a deployment plan and code for each machine.
+ we have a bunch of the Hydro maintainers with us at RustConf this week, go say hi!
+
+ Rust makes it way safer to write really fast code while ruling out huge classes of memory and concurrency bugs.
+
+Hydro does the same thing for distributed systems.
 -->
 
 ---
-layout: statement
-class: closing-slide
+layout: default
+class: project-slide hydro-code-slide
+section: hydro
 ---
 
-<p>The next phase is not proving that Rust can run at scale.</p>
-
-# It is making ambitious systems easier to trust.
-
-<div class="closing-projects">metrique &middot; dial9 &middot; Shuttle &middot; Turmoil &middot; Hydro</div>
+<HydroCode />
 
 <!--
-In 2020, making Rust work at Amazon meant filling in the basic ecosystem. Today, AI can produce code much faster, but production systems still need evidence.
+In Hydro, the way you express your system makes it possible to rule out classes of bugs that can exist in distributed systems.
+-->
 
-Metrique gives us evidence from production. dial9 explains runtime behavior. Shuttle and Turmoil turn nondeterminism into repeatable tests. Hydro pushes correctness into the programming model itself.
+---
+layout: default
+class: project-slide hydro-raft-slide
+section: hydro
+---
 
-The next phase is not proving Rust can run at scale. Amazon has been doing that for ten years. It is making ambitious systems easier for many teams to trust.
+<HydroRaft />
 
-Thank you.
+<!--
+I want to share a quick anecdote about the sorts of problems Hydro can catch.
+
+[click]
+
+Most folks are probably familiar with the Raft consensus protocol. It is a theoretically simpler and easier to understand alternative to Paxos.
+
+[click]
+
+An early version of Raft actually had a potentially severe bug that went undetected for some time.
+
+[click]
+
+You can use tools like Hydro to implement consensus protocols like Paxos and Raft. If you implement the buggy version of Raft with Hydro, Hydro's built-in simulation tests catch it immediately.
+
+Sources:
+- https://raft.github.io/
+- https://groups.google.com/g/raft-dev/c/t4xj6dJTP6E/m/d2D9LrWRza8J
+-->
+
+---
+layout: default
+class: project-slide battery-pack-slide
+section: battery
+---
+
+<BatteryPackIntro />
+
+<!--
+One last thing. These are a lot of libraries; how do I figure out what to use? how do I actually use them?
+
+Using Rust well requires a lot of tacit ecosystem knowledge: which crates to use, which ones fit together, and which defaults to choose. For that, we're working on battery packs, a way to package up this tacit knowledge into a tangible tool.
+
+Source: https://github.com/nikomatsakis/rcn-july-2026
+-->
+
+---
+layout: default
+class: project-slide battery-pack-details-slide
+section: battery
+---
+
+<BatteryPackDetails />
+
+<!--
+Want to build something on embedded but have no idea where to start? `cargo bp add embedded`.
+
+We have a bigger mission here as well; a battery pack codifies what crates a group of practitioners see as the ones worth rallying around. As these recommendations emerge we can try to support this key set of primitives.
+
+Sources:
+- https://github.com/nikomatsakis/rcn-july-2026
+- https://github.com/battery-pack-rs/battery-pack
+-->
+
+---
+layout: default
+class: closing-qr-slide
+section: battery
+footer: false
+---
+
+<ClosingQr />
+
+<!--
+You can find these projects and more at rust-at-aws.github.io.
+come find us at our booth!
 -->

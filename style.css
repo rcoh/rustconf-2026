@@ -499,6 +499,46 @@ body,
   width: 100%;
 }
 
+.ds-destination {
+  align-items: center;
+  bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 34rem;
+}
+
+.ds-destination-arrow {
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.ds-destination-label {
+  color: var(--rust);
+  font-size: 0.78rem;
+  font-weight: 760;
+  margin-bottom: 0.7rem;
+  text-transform: uppercase;
+}
+
+.ds-destination-list {
+  border-top: 1px solid var(--line);
+  display: grid;
+  font-size: 1.05rem;
+  font-weight: 720;
+  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 0.7rem;
+  text-align: center;
+  width: 100%;
+}
+
+.ds-destination-list span:first-child {
+  color: var(--rust);
+}
+
 .ds-center {
   left: 50%;
   position: absolute;
@@ -600,15 +640,15 @@ body,
 .ec-sub {
   color: var(--muted);
   font-size: 1rem;
-  margin: 0.5rem 0 3rem;
+  margin: 0.5rem 0 2rem;
 }
 
 .ec-row {
   align-items: center;
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 14rem 1fr 8rem;
-  margin: 1.3rem 0;
+  grid-template-columns: 14rem 1fr 10rem;
+  margin: 0.75rem 0;
 }
 
 .ec-name {
@@ -636,37 +676,46 @@ body,
 .ec-bar {
   border-radius: 5px;
   height: 100%;
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.ec-bar-dial9 {
+.dial9-benchmark .ec-bar-dial9 {
   background: var(--rust);
-  min-width: 6px;
-  width: 2.1%;
 }
 
-.ec-bar-json {
+.dial9-benchmark .ec-bar-json {
   background: var(--muted);
-  width: 100%;
 }
 
 .ec-val {
   font-size: 1.55rem;
   font-weight: 760;
   font-variant-numeric: tabular-nums;
-}
-
-.ec-punch {
-  color: var(--rust);
-  font-size: 1.45rem;
-  font-weight: 760;
-  margin-top: 2.6rem;
-  text-align: center;
+  white-space: nowrap;
 }
 
 .ec-src {
   color: var(--muted);
   font-size: 0.78rem;
   margin-top: 2.4rem;
+}
+
+.ec-mode-copy {
+  display: grid;
+}
+
+.ec-mode-copy > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(-0.4rem);
+  transition:
+    opacity 220ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ec-mode-copy > .ec-mode-active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .testing-slide h1 {
@@ -709,13 +758,13 @@ body,
 }
 
 .turmoil-image {
-  bottom: 2.4rem;
-  height: 13rem;
+  bottom: 5.5rem;
+  height: 10.8rem;
   left: 50%;
   object-fit: contain;
   position: absolute;
   transform: translateX(-50%);
-  width: 78%;
+  width: 64%;
 }
 
 .hydro-copy {
